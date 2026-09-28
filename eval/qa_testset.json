@@ -1,0 +1,43 @@
+[
+  {
+    "id": "factuel_1",
+    "question": "Quelle est la valeur de T4 totale mesurée pour Louwenn ?",
+    "criteres_attendus": [
+      "Mentionne la valeur 34 nmol/L",
+      "Mentionne que c'est dans les valeurs de référence (10-60 nmol/L)"
+    ]
+  },
+  {
+    "id": "comparatif_1",
+    "question": "Est-ce que la créatinine a évolué entre les deux prises de sang ?",
+    "criteres_attendus": [
+      "Mentionne une baisse de la créatinine",
+      "Cite les deux valeurs (environ 13,8 mg/L puis 9,4 mg/L)"
+    ]
+  },
+  {
+    "id": "transversal_1",
+    "question": "Fais un résumé global de la santé de Louwenn.",
+    "criteres_attendus": [
+      "Mentionne la perte de poids progressive constatée entre les examens",
+      "Mentionne que la valeur de T4 est dans une zone douteuse pour un chat âgé/symptomatique",
+      "Relie explicitement ces deux éléments comme un signal possible d'hyperthyroïdie débutante à surveiller (pas juste une liste séparée de résultats 'normaux')"
+    ]
+  },
+  {
+    "id": "piege_1",
+    "question": "Quelle est sa tension artérielle actuelle ?",
+    "criteres_attendus": [
+      "Indique que cette information n'est pas présente dans les documents fournis",
+      "N'invente aucune valeur de tension artérielle"
+    ]
+  },
+  {
+    "id": "factuel_2",
+    "question": "L'échographie cardiaque a-t-elle révélé une anomalie ?",
+    "criteres_attendus": [
+      "Indique l'absence d'anomalie cardiaque significative",
+      "Mentionne le souffle cardiaque détecté à l'auscultation ayant motivé l'examen"
+    ]
+  }
+]
