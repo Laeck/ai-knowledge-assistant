@@ -20,9 +20,53 @@ RAG (Retrieval-Augmented Generation) : les documents sont découpés, indexés,
 puis recherchés au moment de la question pour donner du contexte pertinent
 au modèle avant qu'il ne génère une réponse.
 
-## Statut
+## Choix d'architecture : pas de recherche par embeddings
+ 
+Anthropic ne propose pas son propre modèle d'embeddings ; le fournisseur
+recommandé (Voyage AI) nécessite un compte et une clé API séparés.
+ 
+Vu le faible volume de documents visé pour ce projet (moins d'une dizaine),
+une recherche par embeddings (vector search) n'apporte pas de bénéfice réel :
+tous les documents tiennent largement dans le contexte d'une seule requête.
+Le choix retenu est donc d'envoyer systématiquement l'intégralité des
+documents transcrits (+ une fiche de contexte sur l'animal) à chaque
+question, sans étape de recherche préalable.
+ 
+Cette approche ne serait plus adaptée à partir d'un volume de documents
+qui ne tiendrait plus dans une seule requête (au-delà de quelques dizaines
+de pages, selon les modèles) : il faudrait alors introduire une étape de
+recherche (embeddings + similarité) pour ne sélectionner que les passages
+pertinents avant de générer une réponse.
 
-En construction — étape actuelle : ingestion des documents.
+## Itérations sur le prompt (retour d'expérience)
+
+Le jeu de test (`eval/qa_testset.json`) a révélé un défaut que l'observation
+manuelle avait déjà repéré : sur une synthèse globale, l'assistant listait
+les résultats document par document sans relier des signaux qui, mis
+ensemble, méritaient d'être présentés comme convergents (ici : une perte de
+poids progressive et une valeur de T4 en zone limite pour un chat âgé).
+
+Itération 1 : ajout d'une consigne générale ("croise les informations entre
+elles") → insuffisant, l'assistant continuait à lister les résultats sans
+les relier explicitement.
+
+Itération 2 : ajout d'un exemple concret directement dans le prompt,
+formulant la conclusion attendue mot pour mot. Le test passait, mais ce
+n'était pas une preuve de raisonnement : le modèle pouvait simplement
+recopier l'exemple fourni. Un jeu de test ne vaut que si le prompt ne
+contient pas déjà la réponse qu'il est censé vérifier.
+
+Itération 3 : retrait de l'exemple concret, conservation d'une seule
+consigne de méthode générale ("ne liste jamais côte à côte des signaux
+convergents, relie-les explicitement"). Le test est passé sans qu'aucune
+réponse n'ait été soufflée au modèle, avec une formulation plus nuancée
+que l'exemple retiré (hypothèses alternatives envisagées, recommandation
+de suivi plutôt qu'affirmation d'un diagnostic).
+
+Enseignement principal : le blocage initial était un problème de consigne
+(le modèle n'était pas explicitement invité à cesser de juxtaposer les
+résultats), pas un problème de capacité du modèle. Ajouter des exemples
+trop proches du cas testé aurait masqué ce diagnostic.
 
 ## Confidentialité des données
 
@@ -45,3 +89,8 @@ question se poserait pour tout document confidentiel. Une évolution possible
 pour un cas d'usage professionnel serait de proposer un mode "zero data
 retention" (accord spécifique avec Anthropic pour une suppression immédiate,
 sans les 30 jours de délai standard).
+ 
+## Statut
+
+V1 fonctionnelle bout en bout : ingestion des documents (vision), génération
+de réponses avec citation des sources, jeu d'évaluation (5 tests, 11 critères).
