@@ -1,0 +1,13 @@
+# Environnement virtuel Python
+venv/
+__pycache__/
+*.pyc
+
+# Secrets
+.env
+
+# Données médicales réelles (ne doivent pas partir sur GitHub)
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
