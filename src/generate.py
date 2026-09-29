@@ -69,7 +69,7 @@ def poser_question(question: str, contexte: str) -> str:
     reponse = client.messages.create(
         model=MODEL,
         max_tokens=1000,
-        temperature=TEMPERATURE,
+        extra_body={"temperature": TEMPERATURE},
         system=PROMPT_SYSTEME,
         messages=[
             {

@@ -48,7 +48,7 @@ def evaluer_reponse(reponse: str, criteres: list[str]) -> str:
     verdict = client.messages.create(
         model=MODEL,
         max_tokens=500,
-        temperature=TEMPERATURE,
+        extra_body={"temperature": TEMPERATURE},
         messages=[{"role": "user", "content": prompt}],
     )
     afficher_usage(verdict)

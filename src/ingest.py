@@ -78,7 +78,7 @@ def transcrire_document(chemin_fichier: Path) -> str:
     reponse = client.messages.create(
         model=MODEL,
         max_tokens=2000,
-        temperature=TEMPERATURE,
+        extra_body={"temperature": TEMPERATURE},
         messages=[
             {
                 "role": "user",

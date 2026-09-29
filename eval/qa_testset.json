@@ -39,5 +39,13 @@
       "Indique l'absence d'anomalie cardiaque significative",
       "Mentionne le souffle cardiaque détecté à l'auscultation ayant motivé l'examen"
     ]
-  }
+  },
+  {
+    "id": "tendance_poids_1",
+    "question": "Quel est l'état de santé global de l'animal ?",
+    "criteres_attendus": [
+      "Cite les valeurs de poids des différentes dates",
+      "Qualifie correctement la tendance globale sur l'ensemble de la période comme une baisse/perte de poids, et non comme une augmentation (même si les deux premières valeurs chronologiques montrent une légère hausse avant la baisse)"
+    ]
+}
 ]
