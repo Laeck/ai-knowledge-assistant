@@ -6,9 +6,10 @@ n'est pas disponible.
 
 ## Cas d'usage
 
-Suivi de l'historique médical d'un animal (résultats d'analyses, échographies,
-bilans) : poser des questions en langage naturel sur des documents médicaux
-plutôt que de les relire un par un.
+Suivi de l'historique médical d'un animal (résultats d'analyses,
+échographies, comptes-rendus d'opération, et tout autre document
+vétérinaire courant) : poser des questions en langage naturel sur ces
+documents plutôt que de les relire un par un.
 
 Exemples de questions cibles :
 - "Quelle était sa valeur de T4 lors du dernier bilan ?"
@@ -67,6 +68,20 @@ Enseignement principal : le blocage initial était un problème de consigne
 (le modèle n'était pas explicitement invité à cesser de juxtaposer les
 résultats), pas un problème de capacité du modèle. Ajouter des exemples
 trop proches du cas testé aurait masqué ce diagnostic.
+
+## Limites connues (périmètre assumé)
+
+- Conçu pour un seul animal, pas pour gérer plusieurs dossiers en parallèle
+- Suppose que l'ensemble des documents tient dans le contexte d'une seule
+  requête (l'approche "option A" ci-dessus) ; à revoir si le volume de
+  documents devenait important sur plusieurs années
+- Pas de garantie de qualité sur des documents très dégradés ou manuscrits
+  (l'extraction repose sur la vision de Claude, pas sur un OCR spécialisé)
+- N'importe quel type de compte-rendu vétérinaire peut être ajouté sans
+  modification du code (l'ingestion et la génération ne sont pas
+  spécifiques à un type d'examen), mais chaque nouveau type de document
+  mériterait d'ajouter un ou deux cas dans `eval/qa_testset.json` pour
+  vérifier que l'assistant l'exploite correctement
 
 ## Confidentialité des données
 
