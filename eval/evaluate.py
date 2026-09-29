@@ -15,7 +15,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-from common import client, MODEL, afficher_usage
+from common import TEMPERATURE, client, MODEL, afficher_usage
 from generate import charger_contexte, poser_question
 
 DOSSIER_EVAL = Path(__file__).parent
@@ -48,6 +48,7 @@ def evaluer_reponse(reponse: str, criteres: list[str]) -> str:
     verdict = client.messages.create(
         model=MODEL,
         max_tokens=500,
+        temperature=TEMPERATURE,
         messages=[{"role": "user", "content": prompt}],
     )
     afficher_usage(verdict)

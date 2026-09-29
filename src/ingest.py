@@ -15,7 +15,7 @@ from pathlib import Path
 
 import fitz  # PyMuPDF, sert à transformer les pages PDF en images
 
-from common import client, MODEL, afficher_usage
+from common import client, MODEL, afficher_usage, TEMPERATURE
 
 DOSSIER_RAW = Path(__file__).parent.parent / "data" / "raw"
 DOSSIER_PROCESSED = Path(__file__).parent.parent / "data" / "processed"
@@ -78,6 +78,7 @@ def transcrire_document(chemin_fichier: Path) -> str:
     reponse = client.messages.create(
         model=MODEL,
         max_tokens=2000,
+        temperature=TEMPERATURE,
         messages=[
             {
                 "role": "user",

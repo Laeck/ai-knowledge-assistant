@@ -12,7 +12,7 @@ Garde-fous mis en place :
 """
 from pathlib import Path
 
-from common import client, MODEL, afficher_usage
+from common import client, MODEL, afficher_usage, TEMPERATURE
 
 DOSSIER_PROCESSED = Path(__file__).parent.parent / "data" / "processed"
 FICHE_ANIMAL = Path(__file__).parent.parent / "data" / "fiche_animal.txt"
@@ -69,6 +69,7 @@ def poser_question(question: str, contexte: str) -> str:
     reponse = client.messages.create(
         model=MODEL,
         max_tokens=1000,
+        temperature=TEMPERATURE,
         system=PROMPT_SYSTEME,
         messages=[
             {
